@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <label for="field_student">Student</label>
-            <select class="form-control" id="field_student" multiple name="student" ng-model="vm.course.students" ng-options="user as user. for user in vm.users track by user.id"></select>
+            <select class="form-control" id="field_student" multiple name="student" ng-model="vm.course.students" ng-options="user as user.lastName for user in vm.users track by user.id"></select>
         </div>
     </div>
     <div class="modal-footer">
