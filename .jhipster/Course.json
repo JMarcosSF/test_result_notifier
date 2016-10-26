@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "teacher",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "lastName",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "student",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-many",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "examResult",
+            "otherEntityName": "examResult",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "course"
+        },
+        {
+            "relationshipName": "exam",
+            "otherEntityName": "exam",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "course"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161026222217",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "course",
+    "pagination": "no"
+}

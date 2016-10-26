@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span>Exam Result</span> {{vm.examResult.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Student</span></dt>
+        <dd>
+            {{vm.examResult.student.lastName}}
+        </dd>
+        <dt><span>Question</span></dt>
+        <dd>
+            <span ng-repeat="question in vm.examResult.questions">
+                <a ui-sref="question-detail({id: question.id})">{{question.text}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span>Answer</span></dt>
+        <dd>
+            <span ng-repeat="answer in vm.examResult.answers">
+                <a ui-sref="answer-detail({id: answer.id})">{{answer.text}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span>Course</span></dt>
+        <dd>
+            <a ui-sref="course-detail({id:vm.examResult.course.id})">{{vm.examResult.course.name}}</a>
+        </dd>
+        <dt><span>Exam</span></dt>
+        <dd>
+            <a ui-sref="exam-detail({id:vm.examResult.exam.id})">{{vm.examResult.exam.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="exam-result-detail.edit({id:vm.examResult.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

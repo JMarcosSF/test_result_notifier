@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "exam"
+        },
+        {
+            "relationshipName": "course",
+            "otherEntityName": "course",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "examResult",
+            "otherEntityName": "examResult",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "exam"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161026222618",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "exam",
+    "pagination": "no"
+}

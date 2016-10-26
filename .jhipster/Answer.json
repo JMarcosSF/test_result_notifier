@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "examResult",
+            "otherEntityName": "examResult",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "answer"
+        },
+        {
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "text"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "text",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isCorrect",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20161026222835",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "answer",
+    "pagination": "no"
+}

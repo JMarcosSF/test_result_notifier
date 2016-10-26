@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ExamResult.
+    -->
+    <changeSet id="20161026222521-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="student_id"
+                                 baseTableName="exam_result"
+                                 constraintName="fk_exam_result_student_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="exam_results_id"
+                                 baseTableName="exam_result_question"
+                                 constraintName="fk_exam_result_question_exam_results_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam_result"/>
+        <addForeignKeyConstraint baseColumnNames="questions_id"
+                                 baseTableName="exam_result_question"
+                                 constraintName="fk_exam_result_question_questions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question"/>
+        
+        <addForeignKeyConstraint baseColumnNames="exam_results_id"
+                                 baseTableName="exam_result_answer"
+                                 constraintName="fk_exam_result_answer_exam_results_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam_result"/>
+        <addForeignKeyConstraint baseColumnNames="answers_id"
+                                 baseTableName="exam_result_answer"
+                                 constraintName="fk_exam_result_answer_answers_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="answer"/>
+        
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="exam_result"
+                                 constraintName="fk_exam_result_course_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="course"/>
+
+        <addForeignKeyConstraint baseColumnNames="exam_id"
+                                 baseTableName="exam_result"
+                                 constraintName="fk_exam_result_exam_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam"/>
+
+    </changeSet>
+</databaseChangeLog>

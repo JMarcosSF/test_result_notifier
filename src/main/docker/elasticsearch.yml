@@ -1,0 +1,10 @@
+version: '2'
+services:
+    test_result_notifier-elasticsearch:
+        container_name: test_result_notifier-elasticsearch
+        image: elasticsearch:2.4.0
+        # volumes:
+        #     - ~/volumes/jhipster/test_result_notifier/elasticsearch/:/usr/share/elasticsearch/data/
+        ports:
+            - 9200:9200
+            - 9300:9300

@@ -1,0 +1,22 @@
+version: '2'
+services:
+    test_result_notifier-app:
+        image: test_result_notifier
+        external_links:
+            - test_result_notifier-mysql:mysql
+            - test_result_notifier-elasticsearch:elasticsearch
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/test_result_notifier?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+        ports:
+            - 8080:8080
+    test_result_notifier-mysql:
+        extends:
+            file: mysql.yml
+            service: test_result_notifier-mysql
+    test_result_notifier-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: test_result_notifier-elasticsearch

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         name="CM1"
+         updateCheck="false"
+         maxBytesLocalHeap="16M">
+
+    <!--
+      This is a default configuration, it is re-configured by the CacheConfiguration Spring Bean, using the
+      properties from the resources/config/*.yml files.
+    -->
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            eternal="false"
+            overflowToDisk="false"
+            />
+
+    <cache name="com.notifier.app.domain.User"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Authority"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.User.authorities"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.PersistentToken"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.User.persistentTokens"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.notifier.app.domain.Course"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Course.students"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Course.examResults"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Course.exams"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.ExamResult"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.ExamResult.questions"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.ExamResult.answers"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Exam"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Exam.questions"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Exam.examResults"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Question"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Question.answers"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Question.examResults"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Answer"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="com.notifier.app.domain.Answer.examResults"
+        timeToLiveSeconds="3600">
+    </cache>
+
+    <!-- jhipster-needle-ehcache-add-entry -->
+</ehcache>

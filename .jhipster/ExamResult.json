@@ -1,0 +1,61 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "student",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "lastName",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "question",
+            "otherEntityName": "question",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "text",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "examResult"
+        },
+        {
+            "relationshipName": "answer",
+            "otherEntityName": "answer",
+            "relationshipType": "many-to-many",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "text",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "examResult"
+        },
+        {
+            "relationshipName": "course",
+            "otherEntityName": "course",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "exam",
+            "otherEntityName": "exam",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20161026222521",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "exam_result",
+    "pagination": "no"
+}
