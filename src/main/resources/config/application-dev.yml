@@ -53,7 +53,7 @@ spring:
                   data: target/elasticsearch/data
     mail:
         host: localhost
-        port: 25
+        port: 9009
         username:
         password:
     messages:
