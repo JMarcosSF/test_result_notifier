@@ -2,6 +2,8 @@
 
 This application was generated using JHipster 3.9.1, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.9.1](https://jhipster.github.io/documentation-archive/v3.9.1).
 
+Case study/project: Create a website for a small company that teaches English and Math courses to high school students to prepare them for SAT. The website should allow students and teachers to register using their email. When teachers conduct practice tests, they will login to the website and add test results for multiple students. Students will then receive an email with test results. Assume the company has 5 teachers and 10 students per class. Recommended technologies are HTML, JQuery or any JavaScript library for front end, REST services for backend and MySQL for database.
+
 ## Development
 
 After Cloning, run the following to get Gulp to work:
