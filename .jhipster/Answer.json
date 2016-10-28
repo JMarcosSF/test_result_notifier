@@ -28,7 +28,10 @@
         },
         {
             "fieldName": "isCorrect",
-            "fieldType": "Boolean"
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20161026222835",
