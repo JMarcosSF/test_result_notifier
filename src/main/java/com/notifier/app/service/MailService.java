@@ -1,6 +1,7 @@
 package com.notifier.app.service;
 
 import com.notifier.app.config.JHipsterProperties;
+import com.notifier.app.domain.ExamResult;
 import com.notifier.app.domain.User;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -32,6 +33,7 @@ public class MailService {
 
     private static final String USER = "user";
     private static final String BASE_URL = "baseUrl";
+    private static final String EXAM_RESULT = "examResult";
 
     @Inject
     private JHipsterProperties jHipsterProperties;
@@ -99,5 +101,19 @@ public class MailService {
         String content = templateEngine.process("passwordResetEmail", context);
         String subject = messageSource.getMessage("email.reset.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
+    }
+
+    @Async
+    public void sendExamResultNotificationMail(ExamResult examResult) {
+        log.debug("Sending password reset e-mail to '{}'", examResult.getStudent().getEmail());
+        Locale locale = Locale.forLanguageTag(examResult.getStudent().getLangKey());
+        int correctAnswers = (int) examResult.getAnswers().stream().filter(answer -> answer.isIsCorrect() == true).count();
+        String score = examResult.getQuestions().size() + "/" + correctAnswers;
+        Context context = new Context(locale);
+        context.setVariable(EXAM_RESULT, examResult);
+        context.setVariable("score", score);
+        String content = templateEngine.process("examResultNotificationEmail", context);
+        String subject = messageSource.getMessage("email.exam.result.notification.title", null, locale);
+        sendEmail(examResult.getStudent().getEmail(), subject, content, false, true);
     }
 }

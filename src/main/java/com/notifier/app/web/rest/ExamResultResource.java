@@ -7,6 +7,7 @@ import com.notifier.app.repository.ExamResultRepository;
 import com.notifier.app.repository.search.ExamResultSearchRepository;
 import com.notifier.app.security.AuthoritiesConstants;
 import com.notifier.app.security.SecurityUtils;
+import com.notifier.app.service.MailService;
 import com.notifier.app.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,9 @@ public class ExamResultResource {
     @Inject
     private ExamResultSearchRepository examResultSearchRepository;
 
+    @Inject
+    private MailService mailService;
+
     /**
      * POST  /exam-results : Create a new examResult.
      *
@@ -59,6 +63,8 @@ public class ExamResultResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("examResult", "idexists", "A new examResult cannot already have an ID")).body(null);
         }
         ExamResult result = examResultRepository.save(examResult);
+
+        mailService.sendExamResultNotificationMail(result);
         examResultSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/exam-results/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("examResult", result.getId().toString()))
