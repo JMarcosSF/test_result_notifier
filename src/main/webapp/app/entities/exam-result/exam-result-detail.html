@@ -8,25 +8,32 @@
         <dd>
             {{vm.examResult.student.lastName}}
         </dd>
-        <dt><span>Question</span></dt>
+        <dt><span>Exam</span></dt>
         <dd>
-            <span ng-repeat="question in vm.examResult.questions">
-                <a ui-sref="question-detail({id: question.id})">{{question.text}}</a>{{$last ? '' : ', '}}
-            </span>
-        </dd>
-        <dt><span>Answer</span></dt>
-        <dd>
-            <span ng-repeat="answer in vm.examResult.answers">
-                <a ui-sref="answer-detail({id: answer.id})">{{answer.text}}</a>{{$last ? '' : ', '}}
-            </span>
+            <!--<a ui-sref="exam-detail({id:vm.examResult.exam.id})">{{vm.examResult.exam.name}}</a>-->
+            {{vm.examResult.exam.name}}
         </dd>
         <dt><span>Course</span></dt>
         <dd>
-            <a ui-sref="course-detail({id:vm.examResult.course.id})">{{vm.examResult.course.name}}</a>
+            <!--<a ui-sref="course-detail({id:vm.examResult.course.id})">{{vm.examResult.course.name}}</a>-->
+            {{vm.examResult.course.name}}
         </dd>
-        <dt><span>Exam</span></dt>
+        <dt><span>Teacher</span></dt>
         <dd>
-            <a ui-sref="exam-detail({id:vm.examResult.exam.id})">{{vm.examResult.exam.name}}</a>
+            <!--<a ui-sref="exam-detail({id:vm.examResult.exam.id})">{{vm.examResult.course.teacher.lastName}}</a>-->
+            {{vm.examResult.course.teacher.lastName}}
+        </dd>
+        <dt><span>Question</span></dt>
+        <dd>
+            <div ng-repeat="question in vm.examResult.questions">
+                {{question.text}}
+            </div>
+        </dd>
+        <dt><span>Answer</span></dt>
+        <dd>
+            <div ng-repeat="answer in vm.examResult.answers">
+                {{answer.text}} is correct: {{answer.isCorrect}}
+            </div>
         </dd>
     </dl>
 
@@ -36,7 +43,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="exam-result-detail.edit({id:vm.examResult.id})" class="btn btn-primary">
+    <button type="button" ui-sref="exam-result-detail.edit({id:vm.examResult.id})" class="btn btn-primary" ng-show="true" has-authority="ROLE_ADMIN">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm"> Edit</span>
     </button>

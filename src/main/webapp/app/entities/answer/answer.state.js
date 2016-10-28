@@ -96,7 +96,7 @@
                         entity: function () {
                             return {
                                 text: null,
-                                isCorrect: null,
+                                isCorrect: false,
                                 id: null
                             };
                         }

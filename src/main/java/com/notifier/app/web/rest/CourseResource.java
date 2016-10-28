@@ -5,6 +5,8 @@ import com.notifier.app.domain.Course;
 
 import com.notifier.app.repository.CourseRepository;
 import com.notifier.app.repository.search.CourseSearchRepository;
+import com.notifier.app.security.AuthoritiesConstants;
+import com.notifier.app.security.SecurityUtils;
 import com.notifier.app.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CourseResource {
 
     private final Logger log = LoggerFactory.getLogger(CourseResource.class);
-        
+
     @Inject
     private CourseRepository courseRepository;
 
@@ -99,7 +101,13 @@ public class CourseResource {
     @Timed
     public List<Course> getAllCourses() {
         log.debug("REST request to get all Courses");
-        List<Course> courses = courseRepository.findAllWithEagerRelationships();
+        List<Course> courses = null;
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TEACHER)) {
+            log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.TEACHER);
+            courses = courseRepository.findByTeacherIsCurrentUser();
+        } else {
+            courses = courseRepository.findAllWithEagerRelationships();
+        }
         return courses;
     }
 
@@ -144,7 +152,7 @@ public class CourseResource {
      * SEARCH  /_search/courses?query=:query : search for the course corresponding
      * to the query.
      *
-     * @param query the query of the course search 
+     * @param query the query of the course search
      * @return the result of the search
      */
     @RequestMapping(value = "/_search/courses",

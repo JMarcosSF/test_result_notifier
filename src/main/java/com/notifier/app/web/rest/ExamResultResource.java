@@ -5,6 +5,8 @@ import com.notifier.app.domain.ExamResult;
 
 import com.notifier.app.repository.ExamResultRepository;
 import com.notifier.app.repository.search.ExamResultSearchRepository;
+import com.notifier.app.security.AuthoritiesConstants;
+import com.notifier.app.security.SecurityUtils;
 import com.notifier.app.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ExamResultResource {
 
     private final Logger log = LoggerFactory.getLogger(ExamResultResource.class);
-        
+
     @Inject
     private ExamResultRepository examResultRepository;
 
@@ -99,7 +101,14 @@ public class ExamResultResource {
     @Timed
     public List<ExamResult> getAllExamResults() {
         log.debug("REST request to get all ExamResults");
-        List<ExamResult> examResults = examResultRepository.findAllWithEagerRelationships();
+        List<ExamResult> examResults = null;
+
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TEACHER)) {
+            log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.TEACHER);
+            examResults = examResultRepository.findByTeacherIsCurrentUser();
+        } else {
+            examResults = examResultRepository.findAllWithEagerRelationships();
+        }
         return examResults;
     }
 
@@ -144,7 +153,7 @@ public class ExamResultResource {
      * SEARCH  /_search/exam-results?query=:query : search for the examResult corresponding
      * to the query.
      *
-     * @param query the query of the examResult search 
+     * @param query the query of the examResult search
      * @return the result of the search
      */
     @RequestMapping(value = "/_search/exam-results",

@@ -31,7 +31,8 @@ public class Answer implements Serializable {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @Column(name = "is_correct")
+    @NotNull
+    @Column(name = "is_correct", nullable = false)
     private Boolean isCorrect;
 
     @ManyToMany(mappedBy = "answers")

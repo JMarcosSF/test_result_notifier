@@ -37,8 +37,6 @@
                 <tr>
                     <th><span>ID</span></th>
                     <th><span>Student</span></th>
-                    <th><span>Question</span></th>
-                    <th><span>Answer</span></th>
                     <th><span>Course</span></th>
                     <th><span>Exam</span></th>
                     <th></th>
@@ -49,16 +47,6 @@
                     <td><a ui-sref="exam-result-detail({id:examResult.id})">{{examResult.id}}</a></td>
                     <td>
                         {{examResult.student.lastName}}
-                    </td>
-                    <td>
-                        <span ng-repeat="question in examResult.questions">
-                            <a class="form-control-static" ui-sref="question-detail({id: question.id})">{{question.text}}</a>{{$last ? '' : ', '}}
-                        </span>
-                    </td>
-                    <td>
-                        <span ng-repeat="answer in examResult.answers">
-                            <a class="form-control-static" ui-sref="answer-detail({id: answer.id})">{{answer.text}}</a>{{$last ? '' : ', '}}
-                        </span>
                     </td>
                     <td>
                         <a ui-sref="course-detail({id:examResult.course.id})">{{examResult.course.name}}</a>

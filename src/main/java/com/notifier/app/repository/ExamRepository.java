@@ -12,4 +12,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ExamRepository extends JpaRepository<Exam,Long> {
 
+    @Query("select exam from Exam exam where exam.course.teacher.login = ?#{principal.username}")
+    List<Exam> findByTeacherIsCurrentUser();
+
 }

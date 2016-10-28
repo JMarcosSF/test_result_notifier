@@ -67,25 +67,16 @@ public class AccountResource {
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
-        return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
-            .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
-                .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-                .orElseGet(() -> {
-                    User user = userService.createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
-                    managedUserVM.getFirstName(), managedUserVM.getLastName(), managedUserVM.getEmail().toLowerCase(),
-                    managedUserVM.getLangKey());
-                    String baseUrl = request.getScheme() + // "http"
-                    "://" +                                // "://"
-                    request.getServerName() +              // "myhost"
-                    ":" +                                  // ":"
-                    request.getServerPort() +              // "80"
-                    request.getContextPath();              // "/myContextPath" or "" if deployed in root context
-
-                    mailService.sendActivationEmail(user, baseUrl);
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                })
-        );
+        Optional<User> user = userRepository.findOneByEmail(managedUserVM.getLogin().toLowerCase());
+        String baseUrl = request.getScheme() + // "http"
+            "://" +                                // "://"
+            request.getServerName() +              // "myhost"
+            ":" +                                  // ":"
+            request.getServerPort() +              // "80"
+            request.getContextPath();              // "/myContextPath" or "" if deployed in root context
+        log.debug("Registering user: " + user.get());
+        mailService.sendCreationEmail(user.get(), baseUrl);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

@@ -13,11 +13,41 @@
         vm.examResult = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.users = User.query();
-        vm.questions = Question.query();
-        vm.answers = Answer.query();
-        vm.courses = Course.query();
-        vm.exams = Exam.query();
+        Course.query().$promise
+            .then(function(value) {
+                vm.courses = value;
+                vm.exams = Exam.query();
+        }, function(err) {
+            console.log("Error: " + err);
+        });
+        vm.examResult.course = null;
+        $scope.$watch('vm.examResult.course', function() {
+            if(vm.examResult.course) {
+                Course.get({id : vm.examResult.course.id}).$promise.then(function(value) {
+                    vm.users = value.students;
+                }, function(err) {
+                    console.log("Error: " + err);
+                });
+            }
+        });
+        $scope.$watch('vm.examResult.exam', function() {
+            if(vm.examResult.exam) {
+                Question.query().$promise.then(function(value) {
+                    vm.questions = value.filter(function(obj) {
+                        return obj.exam.id === vm.examResult.exam.id;
+                    });
+
+                }).then(function() {
+                    Answer.query().$promise.then(function(value) {
+                        vm.answers = value.filter(function(obj) {
+                            return obj.question.exam.id === vm.examResult.exam.id;
+                        });
+                    })
+                }), function(err) {
+                    console.log("Error: " + err);
+                };
+            }
+        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

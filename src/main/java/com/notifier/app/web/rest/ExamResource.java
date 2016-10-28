@@ -5,6 +5,8 @@ import com.notifier.app.domain.Exam;
 
 import com.notifier.app.repository.ExamRepository;
 import com.notifier.app.repository.search.ExamSearchRepository;
+import com.notifier.app.security.AuthoritiesConstants;
+import com.notifier.app.security.SecurityUtils;
 import com.notifier.app.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ExamResource {
 
     private final Logger log = LoggerFactory.getLogger(ExamResource.class);
-        
+
     @Inject
     private ExamRepository examRepository;
 
@@ -99,7 +101,15 @@ public class ExamResource {
     @Timed
     public List<Exam> getAllExams() {
         log.debug("REST request to get all Exams");
-        List<Exam> exams = examRepository.findAll();
+
+        List<Exam> exams = null;
+
+        if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TEACHER)) {
+            log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.TEACHER);
+            exams = examRepository.findByTeacherIsCurrentUser();
+        } else {
+            exams = examRepository.findAll();
+        }
         return exams;
     }
 
@@ -144,7 +154,7 @@ public class ExamResource {
      * SEARCH  /_search/exams?query=:query : search for the exam corresponding
      * to the query.
      *
-     * @param query the query of the exam search 
+     * @param query the query of the exam search
      * @return the result of the search
      */
     @RequestMapping(value = "/_search/exams",

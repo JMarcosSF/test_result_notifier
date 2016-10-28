@@ -16,6 +16,9 @@ public interface ExamResultRepository extends JpaRepository<ExamResult,Long> {
     @Query("select examResult from ExamResult examResult where examResult.student.login = ?#{principal.username}")
     List<ExamResult> findByStudentIsCurrentUser();
 
+    @Query("select examResult from ExamResult examResult where examResult.course.teacher.login = ?#{principal.username}")
+    List<ExamResult> findByTeacherIsCurrentUser();
+
     @Query("select distinct examResult from ExamResult examResult left join fetch examResult.questions left join fetch examResult.answers")
     List<ExamResult> findAllWithEagerRelationships();
 

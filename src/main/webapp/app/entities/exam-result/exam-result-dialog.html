@@ -13,7 +13,18 @@
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.examResult.id" readonly />
         </div>
-
+        <div class="form-group">
+            <label for="field_course">Course</label>
+            <select class="form-control" id="field_course" name="course" ng-model="vm.examResult.course" ng-options="course as course.name for course in vm.courses track by course.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.course.$invalid">
+            <p class="help-block"
+               ng-show="editForm.course.$error.required">
+                This field is required.
+            </p>
+        </div>
         <div class="form-group">
             <label for="field_student">Student</label>
             <select class="form-control" id="field_student" name="student" ng-model="vm.examResult.student" ng-options="user as user.lastName for user in vm.users track by user.id" required>
@@ -27,8 +38,20 @@
             </p>
         </div>
         <div class="form-group">
+            <label for="field_exam">Exam</label>
+            <select class="form-control" id="field_exam" name="exam" ng-model="vm.examResult.exam" ng-options="exam as exam.name for exam in vm.exams track by exam.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.exam.$invalid">
+            <p class="help-block"
+               ng-show="editForm.exam.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
             <label for="field_question">Question</label>
-            <select class="form-control" id="field_question" multiple name="question" ng-model="vm.examResult.questions" ng-options="question as question.text for question in vm.questions track by question.id" required></select>
+            <select class="form-control" id="field_question" multiple name="question" ng-model="vm.examResult.questions" ng-options="question as question.id + ' : ' + question.text for question in vm.questions track by question.id" required></select>
         </div>
         <div ng-show="editForm.question.$invalid">
             <p class="help-block"
@@ -38,35 +61,11 @@
         </div>
         <div class="form-group">
             <label for="field_answer">Answer</label>
-            <select class="form-control" id="field_answer" multiple name="answer" ng-model="vm.examResult.answers" ng-options="answer as answer.text for answer in vm.answers track by answer.id" required></select>
+            <select class="form-control" id="field_answer" multiple name="answer" ng-model="vm.examResult.answers" ng-options="answer as 'Question ' + answer.question.id + ' : ' + answer.text + ', Is Correct: ' + answer.isCorrect for answer in vm.answers | orderBy: 'question.id'" required></select>
         </div>
         <div ng-show="editForm.answer.$invalid">
             <p class="help-block"
                 ng-show="editForm.answer.$error.required">
-                This field is required.
-            </p>
-        </div>
-        <div class="form-group">
-            <label for="field_course">Course</label>
-            <select class="form-control" id="field_course" name="course" ng-model="vm.examResult.course" ng-options="course as course.name for course in vm.courses track by course.id" required>
-                <option value=""></option>
-            </select>
-        </div>
-        <div ng-show="editForm.course.$invalid">
-            <p class="help-block"
-                ng-show="editForm.course.$error.required">
-                This field is required.
-            </p>
-        </div>
-        <div class="form-group">
-            <label for="field_exam">Exam</label>
-            <select class="form-control" id="field_exam" name="exam" ng-model="vm.examResult.exam" ng-options="exam as exam.name for exam in vm.exams track by exam.id" required>
-                <option value=""></option>
-            </select>
-        </div>
-        <div ng-show="editForm.exam.$invalid">
-            <p class="help-block"
-                ng-show="editForm.exam.$error.required">
                 This field is required.
             </p>
         </div>

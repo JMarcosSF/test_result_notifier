@@ -144,6 +144,24 @@ public class AnswerResourceIntTest {
 
     @Test
     @Transactional
+    public void checkIsCorrectIsRequired() throws Exception {
+        int databaseSizeBeforeTest = answerRepository.findAll().size();
+        // set the field null
+        answer.setIsCorrect(null);
+
+        // Create the Answer, which fails.
+
+        restAnswerMockMvc.perform(post("/api/answers")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(answer)))
+                .andExpect(status().isBadRequest());
+
+        List<Answer> answers = answerRepository.findAll();
+        assertThat(answers).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllAnswers() throws Exception {
         // Initialize the database
         answerRepository.saveAndFlush(answer);
