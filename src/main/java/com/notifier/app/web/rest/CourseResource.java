@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.notifier.app.domain.Course;
 
 import com.notifier.app.repository.CourseRepository;
+import com.notifier.app.repository.UserRepository;
 import com.notifier.app.repository.search.CourseSearchRepository;
 import com.notifier.app.security.AuthoritiesConstants;
 import com.notifier.app.security.SecurityUtils;
@@ -41,6 +42,9 @@ public class CourseResource {
 
     @Inject
     private CourseSearchRepository courseSearchRepository;
+
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * POST  /courses : Create a new course.
@@ -105,6 +109,8 @@ public class CourseResource {
         if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TEACHER)) {
             log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.TEACHER);
             courses = courseRepository.findByTeacherIsCurrentUser();
+        } else if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STUDENT)) {
+            courses = courseRepository.findByStudents(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
         } else {
             courses = courseRepository.findAllWithEagerRelationships();
         }

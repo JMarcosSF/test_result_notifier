@@ -13,7 +13,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ExamResultRepository extends JpaRepository<ExamResult,Long> {
 
-    @Query("select examResult from ExamResult examResult where examResult.student.login = ?#{principal.username}")
+    @Query("select distinct examResult from ExamResult examResult left join fetch examResult.questions left join fetch examResult.answers where examResult.student.login = ?#{principal.username}")
     List<ExamResult> findByStudentIsCurrentUser();
 
     @Query("select distinct examResult from ExamResult examResult left join fetch examResult.questions left join fetch examResult.answers where examResult.course.teacher.login = ?#{principal.username}")

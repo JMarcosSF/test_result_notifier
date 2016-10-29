@@ -112,6 +112,9 @@ public class ExamResultResource {
         if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.TEACHER)) {
             log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.TEACHER);
             examResults = examResultRepository.findByTeacherIsCurrentUser();
+        } else if(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.STUDENT)){
+            log.debug(SecurityUtils.getCurrentUserLogin() + " is authority: " + AuthoritiesConstants.STUDENT);
+            examResults = examResultRepository.findByStudentIsCurrentUser();
         } else {
             examResults = examResultRepository.findAllWithEagerRelationships();
         }

@@ -20,7 +20,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="exam-detail.edit({id:vm.exam.id})" class="btn btn-primary">
+    <button type="button" ui-sref="exam-detail.edit({id:vm.exam.id})" class="btn btn-primary" ng-show="true" has-authority="ROLE_ADMIN">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-xs hidden-sm"> Edit</span>
     </button>

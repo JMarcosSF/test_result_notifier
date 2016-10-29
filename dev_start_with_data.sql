@@ -482,3 +482,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-10-27 21:35:06
+UPDATE `test_result_notifier`.`jhi_user` SET `reset_date`=NOW() WHERE NOT (reset_date <=> NULL);

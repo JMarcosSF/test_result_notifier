@@ -3,7 +3,7 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-xs-4 no-padding-left" ng-show="true" has-authority="ROLE_ADMIN, ROLE_TEACHER">
                 <button class="btn btn-primary" ui-sref="exam-result.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span class="hidden-xs" >
@@ -11,7 +11,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-xs-8 no-padding-right">
+            <div class="col-xs-8 no-padding-right" ng-show="true" has-authority="ROLE_ADMIN">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
                         <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="Query">
@@ -68,13 +68,13 @@
                             </button>
                             <button type="submit"
                                     ui-sref="exam-result.edit({id:examResult.id})"
-                                    class="btn btn-primary btn-sm">
+                                    class="btn btn-primary btn-sm" ng-show="true" has-authority="ROLE_ADMIN, ROLE_TEACHER">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>
                             <button type="submit"
                                     ui-sref="exam-result.delete({id:examResult.id})"
-                                    class="btn btn-danger btn-sm">
+                                    class="btn btn-danger btn-sm" ng-show="true" has-authority="ROLE_ADMIN, ROLE_TEACHER">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>
