@@ -108,7 +108,7 @@ public class MailService {
         log.debug("Sending password reset e-mail to '{}'", examResult.getStudent().getEmail());
         Locale locale = Locale.forLanguageTag(examResult.getStudent().getLangKey());
         int correctAnswers = (int) examResult.getAnswers().stream().filter(answer -> answer.isIsCorrect() == true).count();
-        String score = examResult.getQuestions().size() + "/" + correctAnswers;
+        String score = correctAnswers + "/" + examResult.getQuestions().size();
         Context context = new Context(locale);
         context.setVariable(EXAM_RESULT, examResult);
         context.setVariable("score", score);
