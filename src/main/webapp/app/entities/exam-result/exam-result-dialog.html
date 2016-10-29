@@ -49,26 +49,20 @@
                 This field is required.
             </p>
         </div>
-        <div class="form-group">
-            <label for="field_question">Question</label>
-            <select class="form-control" id="field_question" multiple name="question" ng-model="vm.examResult.questions" ng-options="question as question.id + ' : ' + question.text for question in vm.questions track by question.id" required></select>
-        </div>
-        <div ng-show="editForm.question.$invalid">
-            <p class="help-block"
-                ng-show="editForm.question.$error.required">
-                This field is required.
-            </p>
-        </div>
-        <div class="form-group">
-            <label for="field_answer">Answer</label>
-            <select class="form-control" id="field_answer" multiple name="answer" ng-model="vm.examResult.answers" ng-options="answer as 'Question ' + answer.question.id + ' : ' + answer.text + ', Is Correct: ' + answer.isCorrect for answer in vm.answers | orderBy: 'question.id'" required></select>
-        </div>
-        <div ng-show="editForm.answer.$invalid">
-            <p class="help-block"
-                ng-show="editForm.answer.$error.required">
-                This field is required.
-            </p>
-        </div>
+        <table class="table table-bordered" ng-repeat="question in vm.questions">
+            <thead>
+            <tr>
+                <th>Question: {{question.text}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="answer in vm.filterAnswers(vm.answers, question)" ng-init="vm.checkboxFix()">
+                <td>
+                    <div class="checkbox"><label><input name="{{question.id}}" checklist-model="vm.examResult.answers" checklist-value="answer" type="checkbox">{{answer.text}}, is correct: {{answer.isCorrect}}</label></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
