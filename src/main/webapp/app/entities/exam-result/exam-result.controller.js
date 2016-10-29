@@ -5,14 +5,15 @@
         .module('testResultNotifierApp')
         .controller('ExamResultController', ExamResultController);
 
-    ExamResultController.$inject = ['$scope', '$state', 'ExamResult', 'ExamResultSearch'];
+    ExamResultController.$inject = ['$scope', '$state', 'ExamResult', 'ExamResultSearch', 'ExamResultUtil'];
 
-    function ExamResultController ($scope, $state, ExamResult, ExamResultSearch) {
+    function ExamResultController ($scope, $state, ExamResult, ExamResultSearch, ExamResultUtil) {
         var vm = this;
-        
+
         vm.examResults = [];
         vm.search = search;
         vm.loadAll = loadAll;
+        vm.getExamScore = ExamResultUtil.getExamScore;
 
         loadAll();
 

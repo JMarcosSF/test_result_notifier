@@ -39,6 +39,7 @@
                     <th><span>Student</span></th>
                     <th><span>Course</span></th>
                     <th><span>Exam</span></th>
+                    <th><span>Score</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,13 +47,16 @@
                 <tr ng-repeat="examResult in vm.examResults track by examResult.id">
                     <td><a ui-sref="exam-result-detail({id:examResult.id})">{{examResult.id}}</a></td>
                     <td>
-                        {{examResult.student.lastName}}
+                        {{examResult.student.lastName}}, {{examResult.student.firstName}}
                     </td>
                     <td>
                         <a ui-sref="course-detail({id:examResult.course.id})">{{examResult.course.name}}</a>
                     </td>
                     <td>
                         <a ui-sref="exam-detail({id:examResult.exam.id})">{{examResult.exam.name}}</a>
+                    </td>
+                    <td>
+                        {{vm.getExamScore(examResult.answers, examResult.questions)}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
