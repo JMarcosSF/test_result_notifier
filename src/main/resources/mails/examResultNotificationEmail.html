@@ -23,12 +23,12 @@
         <td th:text="${answer.getText()}">2.41</td>
         <td th:text="${answer.isIsCorrect()}? 'YES' : 'NO'">yes</td>
     </tr>
-</table>email.exam.result.notification.text1
+</table>
 <p th:utext="#{email.exam.result.notification.text2(${score})}">10/10</p>
 <p>
     <p th:text="#{email.exam.result.notification.text3(${examResult.getCourse().getTeacher().getEmail()})}"></p>
     <br/>
-    <em th:text="#{email.signature}">Test Result Notifier App</em>
+    <em th:text="#{email.signature}">Exam Result Notifier App</em>
 </p>
 </body>
 </html>
